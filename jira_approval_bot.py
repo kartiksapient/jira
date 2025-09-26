@@ -54,10 +54,12 @@ class JiraApprovalBot:
                 'assignee': issue.fields.assignee.displayName if issue.fields.assignee else 'Unassigned',
                 'reporter': issue.fields.reporter.displayName if issue.fields.reporter else 'Unknown',
                 'description': issue.fields.description or 'No description provided',
-                'issue_object': issue
-                # 'Addional_Information': issue.fields.Addional_Information.displayName or 'No description provided',
-                # 'resource_name' : issue.fields.resource_name.displayName or 'No description provided',
-                # 'gurdrail/policyControl' : issue.fields.gurdrail/policyControl.displayName or 'No description provided'
+                'issue_object': issue,
+                'addional_information': issue.fields.customfield_10061 or 'Unknown',
+                'resource_name' : issue.fields.customfield_10058 or 'Unknown',
+                'gurdrail/policyControl' : issue.fields.customfield_10062 or 'Unknown',
+                'Project_Name' : issue.fields.customfield_10060 or 'Unknown',
+                'Justification' : issue.fields.customfield_10059 or 'Unknown',
             }
 
         except Exception as e:
@@ -75,10 +77,11 @@ class JiraApprovalBot:
         print(f"Assignee:                   {ticket_info['assignee']}")
         print(f"Reporter:                   {ticket_info['reporter']}")
         print(f"Description:                {ticket_info['description'][:100]}{'...' if len(ticket_info['description']) > 100 else ''}")
-        # print(f"fields:                     {ticket_info['fields']}")
-        print(f"issue_object:       {ticket_info['issue_object']}")
-        # print(f"resource_name:              {ticket_info['resource_name']}")
-        # print(f"gurdrail/policyControl:     {ticket_info['gurdrail/policyControl']}")
+        print(f"Project_Name:               {ticket_info['Project_Name']}")
+        print(f"addional_information:       {ticket_info['addional_information']}")
+        print(f"resource_name:              {ticket_info['resource_name']}")
+        print(f"gurdrail/policyControl:     {ticket_info['gurdrail/policyControl']}")
+        print(f"Justification:              {ticket_info['Justification']}")
         print("="*60)
     
     def get_available_transitions(self, issue):
